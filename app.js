@@ -53,7 +53,7 @@ app.post("/players/", async (Request, Response) => {
     VALUES
     ('${playerName}','${jerseyNumber}','${role}');`;
   const dbresponse = await db.run(player);
-  Response.send("Player Details Updated");
+  Response.send("Player Added to Team");
 });
 
 app.get("/players/:playerId/", async (Request, Response) => {
@@ -66,7 +66,7 @@ app.get("/players/:playerId/", async (Request, Response) => {
     WHERE 
     player_id=${playerId};`;
   const id = await db.get(player);
-  Response.send(id);
+  Response.send(convertDbObjectToResponseObject(id));
 });
 
 app.put("/players/:playerId/", async (Request, Response) => {
@@ -83,7 +83,7 @@ app.put("/players/:playerId/", async (Request, Response) => {
     WHERE
     player_id=${playerId};`;
   await db.run(player);
-  Response.send("Player Details Up");
+  Response.send(" Player Details Updated ");
 });
 
 app.delete("/players/:playerId/", async (Request, Response) => {
