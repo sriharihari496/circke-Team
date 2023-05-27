@@ -34,7 +34,7 @@ const convertDbObjectToResponseObject = (dbObject) => {
 
 app.get("/players/", async (Request, Response) => {
   const getteam = `
-  SELECT 
+  SELECT
   *
   FROM 
   cricket_team;`;
@@ -51,7 +51,7 @@ app.post("/players/", async (Request, Response) => {
     INSERT INTO 
     cricket_team(player_name,jersey_number,role)
     VALUES
-    ('${playerName}','${jerseyNumber}','${role}');`;
+    ('${playerName}',${jerseyNumber},'${role}');`;
   const dbresponse = await db.run(player);
   Response.send("Player Added to Team");
 });
@@ -77,13 +77,13 @@ app.put("/players/:playerId/", async (Request, Response) => {
     UPDATE
     cricket_team
     SET
-    player_name=${playerName},
+    player_name='${playerName}',
     jersey_number=${jerseyNumber},
-    role=${role}
+    role='${role}'
     WHERE
     player_id=${playerId};`;
   await db.run(player);
-  Response.send(" Player Details Updated ");
+  Response.send("Player Details Updated");
 });
 
 app.delete("/players/:playerId/", async (Request, Response) => {
